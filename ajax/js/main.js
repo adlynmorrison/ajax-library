@@ -16,24 +16,23 @@
 		xhr.onreadystatechange = function() {
 			if ((xhr.readyState == 4) && (xhr.status == 200 || xhr.status == 304)){
 				var body = document.getElementsByTagName("body")[0];
-				//retrive json data from the server
-				var json = xhr.responseText;
-				alert(json);
+				//retrive/access json data from the server
+				//turn into json object
+				var json = JSON.parse(xhr.responseText);
 
-				/*
-				var heading = xhr.responseXML.getElementsByTagName("heading")[0].firstChild.nodeValue;
+				var heading = json.heading;
 				var h2 = document.createElement("h2");
 				var h2Text = document.createTextNode(heading);
 				h2.appendChild(h2Text);
 				
 				var list = document.createElement("ul");
-				var items = xhr.responseXML.getElementsByTagName("items")[0];
-				items = items.getElementsByTagName("item");
 
-				for (var i=0; i<items.length; i++){
+				var items = json.items;
+				//key variable inside the loop hold the ame of the key it's looping over
+				for (var key in items){
 					//grab each items' text value
-					var item =items[i].firstChild.nodeValue;
-					//hold li element
+					var item = items[key];
+					//create li element
 					var li = document.createElement("li");
 					//get li text
 					var liText = document.createTextNode(item);
@@ -48,7 +47,6 @@
 
 				//remove the link from the body
 				body.removeChild(link);
-				*/
 			}
 		};
 		//open the request #1
